@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 import { Input } from "@nextui-org/input";
 import { SearchIcon } from "../../icons";
 
