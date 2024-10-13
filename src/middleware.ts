@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-
-type Role = keyof typeof roleBasedRoutes;
+import { NextRequest } from "next/server";
 
 const AuthRoutes = ["/login", "/register"];
+
+type Role = keyof typeof roleBasedRoutes;
 
 const roleBasedRoutes = {
   USER: [/^\/profile/],
@@ -12,12 +12,16 @@ const roleBasedRoutes = {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  //console.log(pathname);
-  const user = {
-    name: "hamim",
-    token: "34522",
-    role: "User",
-  };
+
+  console.log(pathname);
+
+  //   const user = {
+  //     name: "Mir",
+  //     token: "adsf asda",
+  //     role: "ADMIN",
+  //   };
+
+  const user = undefined;
 
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
@@ -29,6 +33,7 @@ export function middleware(request: NextRequest) {
 
   if (user?.role && roleBasedRoutes[user?.role as Role]) {
     const routes = roleBasedRoutes[user?.role as Role];
+
     if (routes.some((route) => pathname.match(route))) {
       return NextResponse.next();
     }
@@ -37,6 +42,7 @@ export function middleware(request: NextRequest) {
   return NextResponse.redirect(new URL("/", request.url));
 }
 
+// See "Matching Paths" below to learn more
 export const config = {
   matcher: ["/profile", "/admin", "/login", "/register"],
 };

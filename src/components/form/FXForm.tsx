@@ -1,13 +1,16 @@
+"use client";
+
+import { ReactNode } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-interface IFormProps extends IFormConfigProps {
-  children: React.ReactNode;
-  onSubmit: SubmitHandler<any>;
-}
-
-interface IFormConfigProps {
+interface formConfig {
   defaultValues?: Record<string, any>;
   resolver?: any;
+}
+
+interface IProps extends formConfig {
+  children: ReactNode;
+  onSubmit: SubmitHandler<any>;
 }
 
 export default function FXForm({
@@ -15,21 +18,24 @@ export default function FXForm({
   onSubmit,
   defaultValues,
   resolver,
-}: IFormProps) {
-  const formConfig: IFormConfigProps = {};
+}: IProps) {
+  const formConfig: formConfig = {};
 
-  if (!defaultValues) {
+  if (!!defaultValues) {
     formConfig["defaultValues"] = defaultValues;
   }
 
-  if (!resolver) {
+  if (!!resolver) {
     formConfig["resolver"] = resolver;
   }
+
   const methods = useForm(formConfig);
+
+  const submitHandler = methods.handleSubmit;
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
+      <form onSubmit={submitHandler(onSubmit)}>{children}</form>
     </FormProvider>
   );
 }
