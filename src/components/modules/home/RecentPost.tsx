@@ -7,8 +7,10 @@ export default async function RecentPost() {
   const { data: posts } = await getRecentPosts();
 
   return (
-    <div className="flex gap-5 justify-center items-center">
-      {posts?.map((item: IPost) => <Card key={item._id} item={item} />)}
+    <div className="grid grid-cols-3 gap-5 justify-center items-center">
+      {posts?.map((item: IPost) => (
+        <Card key={item._id} item={item} />
+      ))}
     </div>
   );
 }
