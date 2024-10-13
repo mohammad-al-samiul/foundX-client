@@ -13,7 +13,7 @@ const roleBasedRoutes = {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  console.log(pathname);
+  //console.log(pathname);
 
   //   const user = {
   //     name: "Mir",

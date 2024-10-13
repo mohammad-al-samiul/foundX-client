@@ -1,31 +1,45 @@
 "use client";
-import FXForm from "@/src/components/form/FXForm";
-import FXInput from "@/src/components/form/FXInput";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+
+import FXForm from "@/src/components/form/FXForm";
+import FXInput from "@/src/components/form/FXInput";
+import registerValidationSchema from "@/src/schemas/register.schema";
 
 export default function Register() {
-  const onSubmit = (data: any) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
   };
+
   return (
     <div className="flex h-[calc(100vh-100px)] flex-col items-center justify-center mt-5">
       <h3 className="my-2 text-xl font-bold">Register with FoundX</h3>
       <p className="mb-4">Help Lost Items Find Their Way Home</p>
       <div className="w-[35%]">
-        <FXForm onSubmit={onSubmit}>
+        <FXForm
+          defaultValues={{
+            name: "Mir Hussain",
+            email: "mir@gmail.com",
+            mobileNumber: "01711223344",
+            password: "123456",
+          }}
+          resolver={zodResolver(registerValidationSchema)}
+          onSubmit={onSubmit}
+        >
           <div className="py-3">
-            <FXInput type="text" label="Name" name="name" size="sm" />
+            <FXInput label="Name" name="name" size="sm" type="text" />
           </div>
           <div className="py-3">
-            <FXInput type="email" label="Email" name="email" size="sm" />
+            <FXInput label="Email" name="email" size="sm" type="email" />
           </div>
           <div className="py-3">
             <FXInput
-              type="number"
               label="Mobile Number"
               name="mobileNumber"
               size="sm"
+              type="number"
             />
           </div>
           <div className="py-3">

@@ -28,11 +28,13 @@ export default function FXInput({
   return (
     <Input
       {...register(name)}
-      variant={variant}
-      size={size}
-      required={required}
-      type={type}
+      errorMessage={errors[name] ? (errors[name].message as string) : ""}
+      isInvalid={!!errors[name]}
       label={label}
+      required={required}
+      size={size}
+      type={type}
+      variant={variant}
     />
   );
 }
