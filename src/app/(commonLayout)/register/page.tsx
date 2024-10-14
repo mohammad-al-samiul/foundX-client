@@ -7,10 +7,16 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import FXForm from "@/src/components/form/FXForm";
 import FXInput from "@/src/components/form/FXInput";
 import registerValidationSchema from "@/src/schemas/register.schema";
+import { registerUser } from "@/src/services/AuthService";
 
 export default function Register() {
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
+    const userInfo = {
+      ...data,
+      profilePhoto: "http://surl.li/dsoezh",
+    };
+    const res = await registerUser(userInfo);
   };
 
   return (
