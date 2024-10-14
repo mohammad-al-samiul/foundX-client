@@ -1,8 +1,9 @@
 "use server";
 
-import nexiosInstance from "@/src/config/nexios.config";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
+
+import nexiosInstance from "@/src/config/nexios.config";
 
 interface AuthResponse {
   success: boolean;
@@ -24,6 +25,7 @@ export const registerUser = async (userData: FieldValues) => {
       cookies().set("accessToken", data.data.accessToken);
       cookies().set("refreshToken", data.data.refreshToken);
     }
+
     return data;
   } catch (error: any) {
     throw new Error(error);
