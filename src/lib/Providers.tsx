@@ -11,13 +11,14 @@ export interface ProvidersProps {
   themeProps?: ThemeProviderProps;
 }
 const queryClient = new QueryClient();
+
 export function Providers({ children, themeProps }: ProvidersProps) {
   const router = useRouter();
 
   return (
     <QueryClientProvider client={queryClient}>
       <NextUIProvider navigate={router.push}>
-        <Toaster />
+        <Toaster position="top-center" />
         <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
       </NextUIProvider>
     </QueryClientProvider>

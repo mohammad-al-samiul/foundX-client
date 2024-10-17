@@ -1,4 +1,5 @@
 import { Nexios } from "nexios-http";
+
 import envConfig from "./envConfig";
 
 const nexiosInstance = new Nexios({
