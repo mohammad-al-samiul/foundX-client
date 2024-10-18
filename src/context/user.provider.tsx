@@ -24,15 +24,16 @@ export default function UserProvider({
   children: React.ReactNode;
 }) {
   const [user, setUser] = useState<IUser | null>(null);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   const handleUser = async () => {
     const user = await getCurrentUser();
     setUser(user);
+    setLoading(false);
   };
   useEffect(() => {
     handleUser();
-  }, []);
+  }, [isLoading]);
 
   return (
     <UserContext.Provider value={{ user, setUser, isLoading, setLoading }}>
@@ -46,6 +47,5 @@ export const useUser = () => {
   if (context === undefined) {
     throw new Error("useUser must be used within the UserProvider Context!");
   }
-
   return context;
 };
