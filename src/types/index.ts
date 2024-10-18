@@ -39,8 +39,19 @@ export interface IUser {
   email: string;
   status: string;
   mobileNumber: string;
-  profilePhoto: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
+  profilePhoto?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
+}
+
+export interface IDecodedTokenProps {
+  _id: string;
+  name: string;
+  email: string;
+  mobileNumber: string;
+  role: string;
+  status: string;
+  iat: number;
+  exp: number;
 }

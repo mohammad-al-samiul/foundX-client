@@ -5,6 +5,8 @@ import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 
 import nexiosInstance from "@/src/config/nexios.config";
+import { jwtDecode } from "jwt-decode";
+import { IDecodedTokenProps } from "@/src/types";
 
 interface AuthResponse {
   success: boolean;
@@ -49,4 +51,27 @@ export const loginUser = async (userData: FieldValues) => {
   } catch (error: any) {
     throw new Error(error);
   }
+};
+
+export const logout = () => {
+  cookies().delete("accessToken");
+  cookies().delete("refreshToken");
+};
+
+export const getCurrentUser = async () => {
+  const accessToken = cookies().get("accessToken")?.value;
+  //console.log(accessToken);
+  let decodedToken = null;
+  if (accessToken) {
+    decodedToken = (await jwtDecode(accessToken)) as IDecodedTokenProps;
+    return {
+      _id: decodedToken._id,
+      name: decodedToken.name,
+      email: decodedToken.email,
+      mobileNumber: decodedToken.mobileNumber,
+      role: decodedToken.role,
+      status: decodedToken.status,
+    };
+  }
+  return decodedToken;
 };
