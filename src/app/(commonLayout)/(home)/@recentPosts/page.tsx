@@ -9,7 +9,7 @@ export default async function RecentPost() {
 
   return (
     <Container>
-      <div className="grid grid-cols-3 gap-5 items-center justify-end">
+      <div className="grid grid-cols-3 gap-5 items-center justify-center">
         {posts?.map((item: IPost) => <Card key={item._id} item={item} />)}
       </div>
     </Container>

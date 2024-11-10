@@ -2,21 +2,28 @@ import { Card, Skeleton } from "@nextui-org/react";
 
 export default function CardSkeleton() {
   return (
-    <Card className="w-[200px] space-y-5 p-4" radius="lg">
-      <Skeleton className="rounded-lg">
-        <div className="h-24 rounded-lg bg-default-300"></div>
-      </Skeleton>
-      <div className="space-y-3">
-        <Skeleton className="w-3/5 rounded-lg">
-          <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
-        </Skeleton>
-        <Skeleton className="w-4/5 rounded-lg">
-          <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
-        </Skeleton>
-        <Skeleton className="w-2/5 rounded-lg">
-          <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
-        </Skeleton>
-      </div>
-    </Card>
+    <div className="max-w-7xl mx-auto">
+      <Card className="w-[350px] rounded-xl">
+        <div className="p-0 overflow-visible">
+          <div className="absolute z-[1000] mt-2">
+            <Skeleton className="w-[56px] h-[16px] rounded-lg mt-2 ml-3  bg-default-400 ">
+              <p />
+            </Skeleton>
+            <Skeleton className="w-[101px] h-[28px] rounded-xl mt-2 ml-3 bg-default-400">
+              <p />
+            </Skeleton>
+          </div>
+          <div className="w-[350px] h-[350px] bg-default-400 rounded-xl" />
+        </div>
+        <div className="flex justify-between p-1">
+          <Skeleton className="w-[45px] h-[20px] rounded-lg m-2 bg-default-400">
+            <p> </p>
+          </Skeleton>
+          <Skeleton className="w-[45px] h-[20px] rounded-lg m-2 bg-default-400">
+            <p> </p>
+          </Skeleton>
+        </div>
+      </Card>
+    </div>
   );
 }

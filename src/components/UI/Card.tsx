@@ -12,7 +12,7 @@ import {
 export default function Card({ item }: { item: IPost }) {
   //console.log(item);
   return (
-    <div>
+    <div className="flex items-center justify-center">
       <NextUiCard
         key={item._id}
         isPressable
@@ -24,7 +24,9 @@ export default function Card({ item }: { item: IPost }) {
             <p className="text-tiny text-black/60 uppercase font-bold">
               {item?.dateFound.slice(0, 10)}
             </p>
-            <h4 className="text-black font-medium text-lg">{item?.location}</h4>
+            <h4 className="text-black/60 font-bold text-lg">
+              {item?.location}
+            </h4>
           </CardHeader>
           <Image
             alt={item.title}
