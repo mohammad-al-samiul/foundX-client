@@ -3,9 +3,9 @@
 
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
+import { jwtDecode } from "jwt-decode";
 
 import nexiosInstance from "@/src/config/nexios.config";
-import { jwtDecode } from "jwt-decode";
 import { IDecodedTokenProps } from "@/src/types";
 
 interface AuthResponse {
@@ -62,8 +62,10 @@ export const getCurrentUser = async () => {
   const accessToken = cookies().get("accessToken")?.value;
   //console.log(accessToken);
   let decodedToken = null;
+
   if (accessToken) {
     decodedToken = (await jwtDecode(accessToken)) as IDecodedTokenProps;
+
     return {
       _id: decodedToken._id,
       name: decodedToken.name,
@@ -73,5 +75,6 @@ export const getCurrentUser = async () => {
       status: decodedToken.status,
     };
   }
+
   return decodedToken;
 };

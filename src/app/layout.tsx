@@ -1,11 +1,10 @@
 import "@/src/styles/globals.css";
-import { Metadata, Viewport } from "next";
-import { Link } from "@nextui-org/link";
+import { Metadata } from "next";
 import clsx from "clsx";
 
-import { siteConfig } from "@/src/config/site";
-import { fontSans } from "@/src/config/fonts";
 import { Providers } from "../lib/Providers";
+
+import { siteConfig } from "@/src/config/site";
 
 export const metadata: Metadata = {
   title: {
@@ -18,13 +17,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-};
-
 export default function RootLayout({
   children,
 }: {
@@ -34,11 +26,8 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="en">
       <head />
       <body
+        className={clsx("min-h-screen bg-background font-sans antialiased")}
         suppressHydrationWarning={true}
-        className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           {children}

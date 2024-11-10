@@ -5,38 +5,40 @@ import {
   Card as NextUiCard,
   CardFooter,
   Image,
-  Button,
+  CardBody,
   CardHeader,
 } from "@nextui-org/react";
-import { format } from "date-fns";
 
 export default function Card({ item }: { item: IPost }) {
   //console.log(item);
   return (
-    <NextUiCard
-      isFooterBlurred
-      className="w-[300px] h-[300px] col-span-12 sm:col-span-5"
-    >
-      <CardHeader className="absolute z-10 top-1 flex-col items-start">
-        <h4 className="text-black font-medium text-2xl">{item.title}</h4>
-      </CardHeader>
-      <Image
-        removeWrapper
-        alt="Card example background"
-        className="z-0 w-full h-full scale-125 -translate-y-6 object-cover"
-        src={item.images[0]}
-      />
-      <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
-        <div>
-          <p className="text-black text-tiny">
-            {format(new Date(item.dateFound), "dd-MM-yyyy")}
-          </p>
-          <p className="text-black text-tiny"> {item.status}</p>
-        </div>
-        <Button className="text-tiny" color="primary" radius="full" size="sm">
-          GET
-        </Button>
-      </CardFooter>
-    </NextUiCard>
+    <div>
+      <NextUiCard
+        key={item._id}
+        isPressable
+        shadow="sm"
+        onPress={() => console.log("item pressed")}
+      >
+        <CardBody className="p-0 overflow-visible">
+          <CardHeader className="absolute top-1 left-2 z-[1000] flex-col items-start">
+            <p className="text-tiny text-black/60 uppercase font-bold">
+              {item?.dateFound.slice(0, 10)}
+            </p>
+            <h4 className="text-black font-medium text-lg">{item?.location}</h4>
+          </CardHeader>
+          <Image
+            alt={item.title}
+            className="w-full object-cover h-[350px]"
+            radius="lg"
+            src={item?.images}
+            width="100%"
+          />
+        </CardBody>
+        <CardFooter className="text-small justify-between">
+          <b>{item.title}</b>
+          <p className="text-default-500">{item.status}</p>
+        </CardFooter>
+      </NextUiCard>
+    </div>
   );
 }
