@@ -1,6 +1,4 @@
 "use client";
-import { useUser } from "@/src/context/user.provider";
-import { logout } from "@/src/services/AuthService";
 import {
   Avatar,
   Dropdown,
@@ -10,8 +8,11 @@ import {
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
+import { logout } from "@/src/services/AuthService";
+import { useUser } from "@/src/context/user.provider";
+
 export default function NavbarDropdown() {
-  const { setLoading: userLoading } = useUser();
+  const { setIsLoading: userLoading } = useUser();
   const router = useRouter();
   const handleNavigation = (pathName: string) => {
     router.push(pathName);
@@ -21,6 +22,7 @@ export default function NavbarDropdown() {
     logout();
     userLoading(true);
   };
+
   return (
     <div>
       <Dropdown>
@@ -29,34 +31,34 @@ export default function NavbarDropdown() {
         </DropdownTrigger>
         <DropdownMenu aria-label="Static Actions">
           <DropdownItem
-            onClick={() => handleNavigation("/profile")}
             key="profile"
+            onClick={() => handleNavigation("/profile")}
           >
             Profile
           </DropdownItem>
           <DropdownItem
-            onClick={() => handleNavigation("/create-post")}
             key="post"
+            onClick={() => handleNavigation("/create-post")}
           >
             Create Post
           </DropdownItem>
           <DropdownItem
-            onClick={() => handleNavigation("/claim-request")}
             key="request"
+            onClick={() => handleNavigation("/claim-request")}
           >
             Claim Request
           </DropdownItem>
           <DropdownItem
-            onClick={() => handleNavigation("/setting")}
             key="setting"
+            onClick={() => handleNavigation("/setting")}
           >
             Setting
           </DropdownItem>
           <DropdownItem
-            onClick={handleLogout}
             key="delete"
             className="text-danger"
             color="danger"
+            onClick={handleLogout}
           >
             Logout
           </DropdownItem>

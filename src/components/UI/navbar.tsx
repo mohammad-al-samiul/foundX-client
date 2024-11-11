@@ -68,14 +68,14 @@ export const Navbar = () => {
         ) : (
           <>
             <NavbarItem>
-              <Link href="/login">
-                <Button>Login</Button>
-              </Link>
+              <Button as={NextLink} href={"/login"}>
+                Login
+              </Button>
             </NavbarItem>
             <NavbarItem>
-              <Link href="/register">
-                <Button>Sign Up</Button>
-              </Link>
+              <Button as={NextLink} href="/register">
+                Sign Up
+              </Button>
             </NavbarItem>
           </>
         )}

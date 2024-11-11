@@ -24,9 +24,8 @@ export const registerUser = async (userData: FieldValues) => {
       userData
     );
 
-    if (data.success && data.data) {
-      cookies().set("accessToken", data.data.accessToken);
-      cookies().set("refreshToken", data.data.refreshToken);
+    if (!data.success && !data.data) {
+      throw new Error(data.message);
     }
 
     return data;
@@ -41,6 +40,10 @@ export const loginUser = async (userData: FieldValues) => {
       "/auth/login",
       userData
     );
+
+    if (!data.success && !data.data) {
+      throw new Error(data.message);
+    }
 
     if (data.success && data.data) {
       cookies().set("accessToken", data?.data?.accessToken);

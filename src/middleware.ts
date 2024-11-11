@@ -18,7 +18,6 @@ export async function middleware(request: NextRequest) {
   const user = await getCurrentUser();
 
   //console.log(pathname);
-
   //   const user = {
   //     name: "Mir",
   //     token: "adsf asda",

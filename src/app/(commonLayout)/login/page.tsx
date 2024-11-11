@@ -3,17 +3,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@nextui-org/button";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 import FXForm from "@/src/components/form/FXForm";
 import FXInput from "@/src/components/form/FXInput";
 import loginValidationSchema from "@/src/schemas/login.schema";
 import { useUserLogin } from "@/src/hooks/auth.hook";
 import Loading from "@/src/components/UI/Loading";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@/src/context/user.provider";
 
 export default function Login() {
-  const { setLoading: userLoading } = useUser();
+  const { setIsLoading: userLoading } = useUser();
   const searchParams = useSearchParams();
   const router = useRouter();
   const redirect = searchParams.get("redirect");
@@ -25,13 +26,15 @@ export default function Login() {
     userLoading(true);
   };
 
-  if (!isPending && isSuccess) {
-    if (redirect) {
-      router.push(redirect);
-    } else {
-      router.push("/");
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      if (redirect) {
+        router.push(redirect);
+      } else {
+        router.push("/");
+      }
     }
-  }
+  }, [isSuccess, isPending]);
 
   return (
     <>
@@ -41,6 +44,10 @@ export default function Login() {
         <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
         <div className="w-[35%]">
           <FXForm
+            defaultValues={{
+              email: "mir@gmail.com",
+              password: "123456",
+            }}
             resolver={zodResolver(loginValidationSchema)}
             onSubmit={onSubmit}
           >
