@@ -51,6 +51,7 @@ export interface IDecodedTokenProps {
   email: string;
   mobileNumber: string;
   role: string;
+  profilePhoto?: string;
   status: string;
   iat: number;
   exp: number;
