@@ -10,7 +10,12 @@ export default function FXDateInput({ name, label }: IDateProps) {
     <Controller
       name={name}
       render={({ field: { value, ...fields } }) => (
-        <DatePicker className="" label={label} {...fields} />
+        <DatePicker
+          className="min-w-full sm:min-w-[225px]"
+          label={label}
+          variant="bordered"
+          {...fields}
+        />
       )}
     />
   );

@@ -12,6 +12,7 @@ import { Divider } from "@nextui-org/react";
 
 import FXInput from "@/src/components/form/FXInput";
 import FXDateInput from "@/src/components/form/FXDateInput";
+import dateToIso from "@/src/utils/dateToIso";
 
 export default function CreatePost() {
   const methods = useForm();
@@ -27,6 +28,7 @@ export default function CreatePost() {
     const postData = {
       ...data,
       questions: data.questions.map((que: { value: string }) => que.value),
+      dateFound: dateToIso(data.dateFound),
     };
     console.log(postData);
   };
