@@ -35,30 +35,46 @@ export default function CreatePost() {
   };
 
   return (
-    <div>
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FXInput label="Title" name="title" />
-          <div className="my-3">
-            <Divider />
-
-            <div className="flex justify-between items-center">
-              <h3>Owner Verification</h3>
-              <Button onClick={() => handleFieldAppend()}>Append</Button>
+    <div className="h-full rounded-xl bg-gradient-to-b from-default-100  px-12 py-12">
+      <div>
+        <h2 className="text-xl font-bold my-2">Post a found item</h2>
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex gap-2 mb-2">
+              <FXInput label="Title" name="title" />
+              <FXInput label="Found on" name="found" />
             </div>
+            <div className="flex gap-2 mb-2">
+              <FXInput label="Location" name="location" />
+              <FXInput label="City" name="city" />
+            </div>
+            <div className="flex gap-2 mb-2">
+              <FXInput label="Category" name="category" />
+              <FXInput label="Upload Image" name="image" />
+            </div>
+            <div className="my-3">
+              <Divider />
 
-            {fields.map((item, index) => (
-              <div key={item.id} className="flex justify-between">
-                <FXInput label="Question" name={`questions.${index}.value`} />
-                <Button onClick={() => remove(index)}>Remove</Button>
+              <div className="flex justify-between items-center">
+                <h3>Owner Verification</h3>
+                <Button onClick={() => handleFieldAppend()}>Append</Button>
               </div>
-            ))}
 
-            <Divider />
-          </div>
-          <Button type="submit"> Post</Button>
-        </form>
-      </FormProvider>
+              {fields.map((item, index) => (
+                <div key={item.id} className="flex justify-between">
+                  <FXInput label="Question" name={`questions.${index}.value`} />
+                  <Button onClick={() => remove(index)}>Remove</Button>
+                </div>
+              ))}
+
+              <Divider />
+            </div>
+            <div className="flex justify-end">
+              <Button type="submit"> Post</Button>
+            </div>
+          </form>
+        </FormProvider>
+      </div>
     </div>
   );
 }
