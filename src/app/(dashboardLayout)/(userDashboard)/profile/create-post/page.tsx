@@ -11,6 +11,7 @@ import {
 import { Divider } from "@nextui-org/react";
 
 import FXInput from "@/src/components/form/FXInput";
+import FXDateInput from "@/src/components/form/FXDateInput";
 
 export default function CreatePost() {
   const methods = useForm();
@@ -42,7 +43,8 @@ export default function CreatePost() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex gap-2 mb-2">
               <FXInput label="Title" name="title" />
-              <FXInput label="Found on" name="found" />
+
+              <FXDateInput label="Found Date" name="dateFound" />
             </div>
             <div className="flex gap-2 mb-2">
               <FXInput label="Location" name="location" />
