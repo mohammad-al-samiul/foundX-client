@@ -20,7 +20,7 @@ export default function Sidebar() {
     <div>
       {!isLoading && (
         <>
-          <Card key={user?._id} shadow="sm" className="p-2">
+          <Card key={user?._id} className="p-2" shadow="sm">
             <CardBody className="overflow-visible p-0">
               <Image
                 alt={user?.name}

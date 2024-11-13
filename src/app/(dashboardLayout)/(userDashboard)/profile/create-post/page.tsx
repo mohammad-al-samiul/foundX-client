@@ -9,10 +9,19 @@ import {
   useForm,
 } from "react-hook-form";
 import { Divider } from "@nextui-org/react";
+import { allDistict } from "@bangladeshi/bangladesh-address";
 
 import FXInput from "@/src/components/form/FXInput";
 import FXDateInput from "@/src/components/form/FXDateInput";
 import dateToIso from "@/src/utils/dateToIso";
+import FXSelect from "@/src/components/form/FXSelect";
+
+const cityOptions = allDistict()
+  .sort()
+  .map((district: string) => ({
+    key: district,
+    label: district,
+  }));
 
 export default function CreatePost() {
   const methods = useForm();
@@ -30,6 +39,7 @@ export default function CreatePost() {
       questions: data.questions.map((que: { value: string }) => que.value),
       dateFound: dateToIso(data.dateFound),
     };
+
     console.log(postData);
   };
 
@@ -41,18 +51,19 @@ export default function CreatePost() {
     <div className="h-full rounded-xl bg-gradient-to-b from-default-100  px-12 py-12">
       <div>
         <h2 className="text-xl font-bold my-2">Post a found item</h2>
+        <Divider className="my-2" />
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex gap-2 mb-2">
+            <div className="lg:flex gap-2 mb-2">
               <FXInput label="Title" name="title" />
 
               <FXDateInput label="Found Date" name="dateFound" />
             </div>
-            <div className="flex gap-2 mb-2">
+            <div className="lg:flex gap-2 mb-2">
               <FXInput label="Location" name="location" />
-              <FXInput label="City" name="city" />
+              <FXSelect label="City" name="city" options={cityOptions} />
             </div>
-            <div className="flex gap-2 mb-2">
+            <div className="lg:flex gap-2 mb-2">
               <FXInput label="Category" name="category" />
               <FXInput label="Upload Image" name="image" />
             </div>

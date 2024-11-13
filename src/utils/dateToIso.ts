@@ -7,6 +7,10 @@ interface IPickDateProps {
 }
 
 const dateToIso = (date: IPickDateProps) => {
+  if (!date) {
+    return new Date().toISOString();
+  }
+
   return new Date(`${date.month}-${date.day}-${date.year}`).toISOString();
 };
 
