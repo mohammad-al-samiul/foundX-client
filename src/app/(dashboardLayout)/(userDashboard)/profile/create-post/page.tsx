@@ -15,6 +15,7 @@ import FXInput from "@/src/components/form/FXInput";
 import FXDateInput from "@/src/components/form/FXDateInput";
 import dateToIso from "@/src/utils/dateToIso";
 import FXSelect from "@/src/components/form/FXSelect";
+import { useGetCategories } from "@/src/hooks/category.hook";
 
 const cityOptions = allDistict()
   .sort()
@@ -24,6 +25,25 @@ const cityOptions = allDistict()
   }));
 
 export default function CreatePost() {
+  const {
+    data: categoriesData,
+    isSuccess: categorySuccess,
+    isLoading: categoryLoading,
+  } = useGetCategories();
+
+  let categoryOptions: { key: string; label: string }[] = [];
+  //console.log("data", categoriesData);
+
+  if (categoriesData?.data && !categoryLoading) {
+    categoryOptions = categoriesData?.data
+      .sort()
+      .map((category: { _id: string; name: string }) => ({
+        key: category._id,
+        label: category.name,
+      }));
+  }
+
+  console.log("options", categoryOptions);
   const methods = useForm();
   const { control, handleSubmit } = methods;
 
@@ -64,7 +84,12 @@ export default function CreatePost() {
               <FXSelect label="City" name="city" options={cityOptions} />
             </div>
             <div className="lg:flex gap-2 mb-2">
-              <FXInput label="Category" name="category" />
+              <FXSelect
+                label="Category"
+                name="category"
+                options={categoryOptions}
+                disabled={!categorySuccess}
+              />
               <FXInput label="Upload Image" name="image" />
             </div>
             <div className="my-3">

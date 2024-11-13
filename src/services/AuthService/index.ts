@@ -5,8 +5,8 @@ import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import { jwtDecode } from "jwt-decode";
 
-import nexiosInstance from "@/src/config/nexios.config";
 import { IDecodedTokenProps } from "@/src/types";
+import axiosInstance from "@/src/config/axios.config";
 
 interface AuthResponse {
   success: boolean;
@@ -19,7 +19,7 @@ interface AuthResponse {
 
 export const registerUser = async (userData: FieldValues) => {
   try {
-    const { data } = await nexiosInstance.post<AuthResponse>(
+    const { data } = await axiosInstance.post<AuthResponse>(
       "/auth/register",
       userData
     );
@@ -36,7 +36,7 @@ export const registerUser = async (userData: FieldValues) => {
 
 export const loginUser = async (userData: FieldValues) => {
   try {
-    const { data } = await nexiosInstance.post<AuthResponse>(
+    const { data } = await axiosInstance.post<AuthResponse>(
       "/auth/login",
       userData
     );

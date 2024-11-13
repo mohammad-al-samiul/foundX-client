@@ -8,9 +8,15 @@ interface ISelectProps extends IProps {
     key: string;
     label: string;
   }[];
+  disabled?: boolean;
 }
 
-export default function FXSelect({ options, label, name }: ISelectProps) {
+export default function FXSelect({
+  options,
+  label,
+  name,
+  disabled,
+}: ISelectProps) {
   const {
     register,
     formState: { errors },
@@ -23,6 +29,7 @@ export default function FXSelect({ options, label, name }: ISelectProps) {
       items={options}
       label={label}
       variant="bordered"
+      isDisabled={disabled}
       // placeholder="Select a District"
     >
       {(options) => <SelectItem key={options.key}>{options.label}</SelectItem>}
