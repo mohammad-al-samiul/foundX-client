@@ -16,6 +16,7 @@ import FXDateInput from "@/src/components/form/FXDateInput";
 import dateToIso from "@/src/utils/dateToIso";
 import FXSelect from "@/src/components/form/FXSelect";
 import { useGetCategories } from "@/src/hooks/category.hook";
+import FXInputFile from "@/src/components/form/FXInputFile";
 
 const cityOptions = allDistict()
   .sort()
@@ -43,7 +44,6 @@ export default function CreatePost() {
       }));
   }
 
-  console.log("options", categoryOptions);
   const methods = useForm();
   const { control, handleSubmit } = methods;
 
@@ -90,7 +90,7 @@ export default function CreatePost() {
                 options={categoryOptions}
                 disabled={!categorySuccess}
               />
-              <FXInput label="Upload Image" name="image" />
+              <FXInputFile label="Upload Image" name="image" />
             </div>
             <div className="my-3">
               <Divider />
