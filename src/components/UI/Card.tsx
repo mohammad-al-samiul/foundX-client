@@ -12,7 +12,7 @@ import {
 export default function Card({ item }: { item: IPost }) {
   //console.log(item);
   return (
-    <div className="flex items-center justify-center">
+    <div>
       <NextUiCard
         key={item._id}
         isPressable
@@ -30,10 +30,9 @@ export default function Card({ item }: { item: IPost }) {
           </CardHeader>
           <Image
             alt={item.title}
-            className="w-full object-cover h-[350px]"
+            className="w-[350px] object-cover h-[350px]"
             radius="lg"
-            src={item?.images}
-            width="100%"
+            src={item?.images[0]}
           />
         </CardBody>
         <CardFooter className="text-small justify-between">
