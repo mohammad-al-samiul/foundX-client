@@ -1,25 +1,41 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { IProps } from "./FXInput";
 import { Input } from "@nextui-org/input";
 import { useFormContext } from "react-hook-form";
 
-interface IFileProps extends IProps {}
+interface IFileProps extends IProps {
+  setImagePreviews: Dispatch<SetStateAction<[] | string[]>>;
+}
 
-export default function FXInputFile({ label, name }: IFileProps) {
-  const [imageFile, setImageFile] = useState<File[] | []>([]);
+export default function FXInputFile({
+  label,
+  name,
+  setImagePreviews,
+}: IFileProps) {
+  const [imageFiles, setImageFiles] = useState<File[] | []>([]);
 
-  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files![0];
-    setImageFile((prev) => [...prev, files]);
-  };
-  console.log("image", imageFile);
   const {
     register,
+    setValue,
     formState: { errors },
   } = useFormContext();
+
+  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    setValue(name, files); // Update form value with selected files
+
+    // Generate previews for each file
+    const newPreviews: string[] = files.map((file) =>
+      URL.createObjectURL(file)
+    );
+    setImagePreviews(newPreviews);
+  };
+
+  //console.log("image", imageFile);
+
   return (
     <div className="w-full">
-      <Input
+      <input
         multiple
         {...register(name)}
         type="file"

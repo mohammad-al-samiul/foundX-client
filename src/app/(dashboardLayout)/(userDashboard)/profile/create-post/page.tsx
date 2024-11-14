@@ -8,7 +8,7 @@ import {
   useFieldArray,
   useForm,
 } from "react-hook-form";
-import { Divider } from "@nextui-org/react";
+import { Divider, Image } from "@nextui-org/react";
 import { allDistict } from "@bangladeshi/bangladesh-address";
 
 import FXInput from "@/src/components/form/FXInput";
@@ -17,6 +17,8 @@ import dateToIso from "@/src/utils/dateToIso";
 import FXSelect from "@/src/components/form/FXSelect";
 import { useGetCategories } from "@/src/hooks/category.hook";
 import FXInputFile from "@/src/components/form/FXInputFile";
+import { useState } from "react";
+import { AddIcon, TrashIcon } from "@/src/assets/icon";
 
 const cityOptions = allDistict()
   .sort()
@@ -26,6 +28,7 @@ const cityOptions = allDistict()
   }));
 
 export default function CreatePost() {
+  const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
   const {
     data: categoriesData,
     isSuccess: categorySuccess,
@@ -90,22 +93,52 @@ export default function CreatePost() {
                 options={categoryOptions}
                 disabled={!categorySuccess}
               />
-              <FXInputFile label="Upload Image" name="image" />
+              <FXInputFile
+                label="Upload Image"
+                name="image"
+                setImagePreviews={setImagePreviews}
+              />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {imagePreviews.length > 0 &&
+                imagePreviews.map((image) => (
+                  <div key={image}>
+                    <Image
+                      src={image}
+                      width={70}
+                      height={70}
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
             </div>
             <div className="my-3">
               <Divider />
 
-              <div className="flex justify-between items-center">
-                <h3>Owner Verification</h3>
-                <Button onClick={() => handleFieldAppend()}>Append</Button>
+              <div className="flex justify-between items-center mb-5 mt-3">
+                <h1 className="text-xl">Owner verification questions</h1>
+                <Button isIconOnly onClick={() => handleFieldAppend()}>
+                  <AddIcon />
+                </Button>
               </div>
 
-              {fields.map((item, index) => (
-                <div key={item.id} className="flex justify-between">
-                  <FXInput label="Question" name={`questions.${index}.value`} />
-                  <Button onClick={() => remove(index)}>Remove</Button>
-                </div>
-              ))}
+              <div className="space-y-5">
+                {fields.map((field, index) => (
+                  <div key={field.id} className="flex gap-2 items-center">
+                    <FXInput
+                      label="Question"
+                      name={`questions.${index}.value`}
+                    />
+                    <Button
+                      isIconOnly
+                      className="h-14 w-16"
+                      onClick={() => remove(index)}
+                    >
+                      <TrashIcon />
+                    </Button>
+                  </div>
+                ))}
+              </div>
 
               <Divider />
             </div>
