@@ -1,9 +1,10 @@
 "use server";
 
 import axiosInstance from "@/src/config/axios.config";
+import envConfig from "@/src/config/envConfig";
 import { revalidateTag } from "next/cache";
 
-const createPost = async (postData: FormData) => {
+export const createPost = async (postData: FormData) => {
   try {
     const { data } = await axiosInstance.post("/items", postData, {
       headers: {
@@ -18,4 +19,18 @@ const createPost = async (postData: FormData) => {
   }
 };
 
-export default createPost;
+export const getPost = async (postId: string) => {
+  let fetchOptions = {};
+
+  fetchOptions = {
+    cache: "no-store",
+  };
+
+  const res = await fetch(`${envConfig.baseApi}/items/${postId}`, fetchOptions);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
