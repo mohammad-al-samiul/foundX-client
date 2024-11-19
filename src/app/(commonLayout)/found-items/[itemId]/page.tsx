@@ -1,6 +1,6 @@
 import Container from "@/src/components/UI/Container";
 import Post from "@/src/components/UI/Post";
-import { getPost } from "@/src/services/CreatePost";
+import { getPost } from "@/src/services/Post";
 
 interface IProps {
   params: {

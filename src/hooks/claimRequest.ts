@@ -15,3 +15,10 @@ export const useAddClaimRequest = () => {
     },
   });
 };
+
+export const useGetReceivedClaimRequest = () => {
+  return useQuery({
+    queryKey: ["RECEIVED_CLAIM_REQUEST"],
+    queryFn: async () => await getReceivedClaimRequest(),
+  });
+};

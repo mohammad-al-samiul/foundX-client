@@ -38,6 +38,7 @@
 		"jwt-decode": "^4.0.0",
 		"lightgallery": "^2.8.1",
 		"lucide-react": "^0.460.0",
+		"meilisearch": "^0.45.0",
 		"nexios-http": "^1.1.21",
 		"next": "14.2.4",
 		"next-themes": "^0.2.1",
