@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs, Tab, Button } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import NextLink from "next/link";
 export default function SidebarMenu() {
   return (

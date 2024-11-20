@@ -1,3 +1,4 @@
+"use server";
 const fetchOption = {
   next: {
     tags: ["posts"],
